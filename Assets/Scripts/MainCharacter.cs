@@ -52,6 +52,16 @@ public class MainCharacter : MonoBehaviour
         _stunnedUntil = Time.time + seconds;
     }
 
+    public void CollidedWithTrigger(Vector2 vec, float power, float stunTime)
+    {
+        vec.Normalize();
+        //_rigidbody.AddForce(vec * power, ForceMode2D.Impulse);
+        _rigidbody.velocity = vec * power;
+        if (stunTime != 0)
+            Stun(stunTime);
+        return;
+    }
+
     private void ResetGravity()
     {
         _gravitySize = _minGravity;
@@ -63,7 +73,7 @@ public class MainCharacter : MonoBehaviour
         UpdateGravitySize();
         _rigidbody.AddForce(Vector2.down * _gravitySize, ForceMode2D.Force);
 
-        ApplyReverseAccelerations();
+        ApplyFriction();
 
         ApplyBufferedJumps();
 
@@ -79,8 +89,10 @@ public class MainCharacter : MonoBehaviour
         _gravitySize = Math.Min(_gravitySize, _maxGravity);
     }
 
-    private void ApplyReverseAccelerations()
+    private void ApplyFriction()
     {
+        if(IsStunned())
+            return;
         var vel = _rigidbody.velocity;
 
         if (vel.y > 0)
@@ -119,4 +131,5 @@ public class MainCharacter : MonoBehaviour
     {
         return _stunnedUntil > Time.time;
     }
+
 }
