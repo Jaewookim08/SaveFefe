@@ -69,7 +69,7 @@ public class MainCharacter : MonoBehaviour
 
     public void Stun(float seconds)
     {
-        _stunnedUntil = Time.time + seconds;
+        _stunnedUntil = Math.Max(_stunnedUntil, Time.time + seconds);
     }
 
     public void CollidedWithTrigger(Vector2 vec, float power, float stunTime)
