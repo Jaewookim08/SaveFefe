@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 public class MainCharacter : MonoBehaviour
 {
     public enum JumpDirection
@@ -12,6 +11,8 @@ public class MainCharacter : MonoBehaviour
         Right
     }
 
+
+    [SerializeField] private float _inertia = 1f;
     [SerializeField] private float _jumpImpulseXSize = 1f;
     [SerializeField] private float _jumpImpulseYSize = 1f;
     [Header("Gravity")] [SerializeField] private float _minGravity = 2;
@@ -25,7 +26,8 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] private float _maxDownwardSpeed = 60f;
     [SerializeField] private float _maxHorizontalSpeed = 2f;
 
-    [Header("Sprites")] [SerializeField] private Sprite[] _defaultSprites;
+    [Header("Sprites")] [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Sprite[] _defaultSprites;
     [SerializeField] private Sprite _stunnedSprite;
 
     private int _defaultSpriteIndex = 0;
@@ -37,21 +39,24 @@ public class MainCharacter : MonoBehaviour
 
 
     private Rigidbody2D _rigidbody;
-    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         ResetGravity();
         _nextJumpImpulseBuffer = new Queue<Vector2>();
+    }
+
+    private void Start()
+    {
+        _rigidbody.inertia = _inertia;
     }
 
     private void Update()
     {
         _spriteRenderer.sprite = GetSprite();
     }
-    
+
 
     public void Jump(JumpDirection dir)
     {
@@ -75,12 +80,19 @@ public class MainCharacter : MonoBehaviour
     public void CollidedWithTrigger(Vector2 vec, float power, float stunTime)
     {
         vec.Normalize();
-        //_rigidbody.AddForce(vec * power, ForceMode2D.Impulse);
-        _rigidbody.velocity = vec * power;
-        if (stunTime != 0)
-            Stun(stunTime);
-        return;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForce(vec * power, ForceMode2D.Impulse);
+        Stun(stunTime);
     }
+
+    public void CollidedWithTriggerAtPoint(Vector2 pos, Vector2 vec, float power, float stunTime)
+    {
+        vec.Normalize();
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.AddForceAtPosition(vec * power, pos, ForceMode2D.Impulse);
+        Stun(stunTime);
+    }
+
 
     private void ResetGravity()
     {

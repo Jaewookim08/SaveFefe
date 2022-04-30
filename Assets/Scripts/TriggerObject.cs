@@ -46,7 +46,7 @@ public class TriggerObject : MonoBehaviour
 
         this.triggerObject = other.collider.GetComponent<MainCharacter>();
 
-        Vector2 point = other.GetContact(0).point;
-        triggerObject.CollidedWithTrigger(point - new Vector2(this.transform.localPosition.x, this.transform.localPosition.y), power, stunTime);
+        var point = other.GetContact(0).point;
+        triggerObject.CollidedWithTriggerAtPoint(point, point - (Vector2) transform.localPosition, power, stunTime);
     }
 }
