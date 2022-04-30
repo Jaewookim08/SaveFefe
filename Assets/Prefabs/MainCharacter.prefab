@@ -103,12 +103,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49213cbf670c40689d0b736ed8d8ad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpImpulseSize: 0.7
+  _jumpImpulseXSize: 1
+  _jumpImpulseYSize: 4
   _minGravity: 4
   _maxGravity: 50
   _timeUntilGravityIncreaseStart: 0.1
   _timeForGravityChange: 0.2
-  _verticalFriction: 13
+  _verticalFriction: 10
   _horizontalFriction: 13
   _maxUpwardSpeed: 5
   _maxDownwardSpeed: 120
@@ -164,7 +165,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6562437556401878467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -248,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6562437556848932770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

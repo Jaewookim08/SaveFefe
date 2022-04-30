@@ -1323,6 +1323,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 6562437556236780836, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
+      propertyPath: _minGravity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562437556236780836, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
+      propertyPath: _jumpImpulseSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562437556236780836, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
+      propertyPath: _jumpImpulseYSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6562437556236780836, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
+      propertyPath: _timeUntilGravityIncreaseStart
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6562437556236780838, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
       propertyPath: m_RootOrder
       value: 2

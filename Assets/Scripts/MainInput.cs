@@ -6,7 +6,8 @@ public class MainInput : MonoBehaviour
     [SerializeField] private MainCharacter _mainCharacter;
 
 
-    private static readonly KeyCode[] JumpKeys = { KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F };
+    private static readonly KeyCode[] LeftJumpKeys = {  KeyCode.F };
+    private static readonly KeyCode[] RightJumpKeys = { KeyCode.J };
     private Camera _targetCamera;
 
 
@@ -17,20 +18,19 @@ public class MainInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _mainCharacter.JumpToward(GetMouseWorldPosition());
-        }
-        foreach (var key in JumpKeys)
+        foreach (var key in LeftJumpKeys)
         {
             if (Input.GetKeyDown(key))
             {
-                _mainCharacter.JumpToward(GetMouseWorldPosition());
+                _mainCharacter.Jump(MainCharacter.JumpDirection.Left);
             }
         }
-        if (Input.GetKey(KeyCode.Q))
+        foreach (var key in RightJumpKeys)
         {
-            _mainCharacter.JumpToward(GetMouseWorldPosition());
+            if (Input.GetKeyDown(key))
+            {
+                _mainCharacter.Jump(MainCharacter.JumpDirection.Right);
+            }
         }
     }
 

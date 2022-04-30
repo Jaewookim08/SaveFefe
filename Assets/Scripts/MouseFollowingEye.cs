@@ -29,7 +29,7 @@ public class MouseFollowingEye : MonoBehaviour
 
         foreach (var pupil in _pupils)
         {
-            pupil.localPosition = pupilPos;
+            pupil.localPosition = new Vector3(pupilPos.x, pupilPos.y, pupil.localPosition.z);
         }
         
     }

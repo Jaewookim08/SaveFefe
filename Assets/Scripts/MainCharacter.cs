@@ -5,7 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MainCharacter : MonoBehaviour
 {
-    [SerializeField] private float _jumpImpulseSize = 1f;
+    public enum JumpDirection
+    {
+        Left, Right
+    }
+    
+    [SerializeField] private float _jumpImpulseXSize = 1f;
+    [SerializeField] private float _jumpImpulseYSize = 1f;
     [Header("Gravity")] [SerializeField] private float _minGravity = 2;
     [SerializeField] private float _maxGravity = 5;
     [SerializeField] private float _timeUntilGravityIncreaseStart = 0.5f;
@@ -35,18 +41,19 @@ public class MainCharacter : MonoBehaviour
     }
 
 
-    public void JumpToward(Vector2 targetPosition)
+
+    public void Jump(JumpDirection dir)
     {
         if (!CanJump()) return;
-
-        // 중력 초기화
         ResetGravity();
+        
+        var xDir = dir == JumpDirection.Left ? -1 : 1;
+        
+        var jumpVec = new Vector2(xDir * _jumpImpulseXSize, _jumpImpulseYSize);
 
-        var dir = targetPosition - (Vector2)transform.position;
-
-        _nextJumpImpulseBuffer.Enqueue(dir.normalized * _jumpImpulseSize);
+        _nextJumpImpulseBuffer.Enqueue(jumpVec);
     }
-
+    
     public void Stun(float seconds)
     {
         _stunnedUntil = Time.time + seconds;
@@ -83,7 +90,7 @@ public class MainCharacter : MonoBehaviour
 
     private void UpdateGravitySize()
     {
-        if (!(Time.fixedTime > _lastGravityResetTime + _timeUntilGravityIncreaseStart)) return;
+        if (Time.fixedTime <= _lastGravityResetTime + _timeUntilGravityIncreaseStart) return;
 
         _gravitySize += (_maxGravity - _minGravity) / _timeForGravityChange * Time.fixedDeltaTime;
         _gravitySize = Math.Min(_gravitySize, _maxGravity);
