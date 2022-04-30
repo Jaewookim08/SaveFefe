@@ -1,5 +1,4 @@
 ﻿using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MouseFollowingEye : MonoBehaviour
@@ -29,7 +28,7 @@ public class MouseFollowingEye : MonoBehaviour
 
         foreach (var pupil in _pupils)
         {
-            pupil.localPosition = new Vector3(pupilPos.x, pupilPos.y, pupil.localPosition.z);
+            pupil.position = pupil.parent.transform.position + new Vector3(pupilPos.x, pupilPos.y, pupil.localPosition.z);
         }
         
     }
