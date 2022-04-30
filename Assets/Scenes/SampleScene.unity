@@ -321,7 +321,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49213cbf670c40689d0b736ed8d8ad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpImpulseSize: 5
+  _jumpImpulseSize: 2
+  _minGravity: 2
+  _maxGravity: 8
+  _timeUntilGravityIncreaseStart: 0.5
+  _timeForGravityChange: 0
 --- !u!50 &1183501285
 Rigidbody2D:
   serializedVersion: 4
