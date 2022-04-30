@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a434804230dba4eaf9fc9c1165601a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrigger: 1
   directionFixed: 1
   direction: {x: -1, y: 2}
   power: 200
@@ -501,7 +502,7 @@ Transform:
   - {fileID: 1887585947}
   - {fileID: 501759493}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &501759492
 GameObject:
@@ -822,7 +823,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a434804230dba4eaf9fc9c1165601a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrigger: 0
   directionFixed: 0
   direction: {x: 0, y: 0}
   power: 20
@@ -1327,6 +1329,10 @@ PrefabInstance:
       propertyPath: _jumpImpulseSize
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6562437556236780837, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6562437556236780838, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1456,7 +1462,7 @@ Transform:
   m_Children:
   - {fileID: 255714375}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1879269854
 GameObject:

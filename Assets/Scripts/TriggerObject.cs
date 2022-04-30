@@ -46,7 +46,7 @@ public class TriggerObject : MonoBehaviour
 
         this.triggerObject = other.collider.GetComponent<MainCharacter>();
 
-        var relVelocity = other.GetContact(0).relativeVelocity;
-        triggerObject.CollidedWithTrigger(-relVelocity, power, stunTime);
+        Vector2 point = other.GetContact(0).point;
+        triggerObject.CollidedWithTrigger(point - new Vector2(this.transform.localPosition.x, this.transform.localPosition.y), power, stunTime);
     }
 }
