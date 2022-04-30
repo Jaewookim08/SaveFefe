@@ -28,7 +28,10 @@ public class MainInput : MonoBehaviour
                 _mainCharacter.JumpToward(GetMouseWorldPosition());
             }
         }
-        
+        if (Input.GetKey(KeyCode.Q))
+        {
+            _mainCharacter.JumpToward(GetMouseWorldPosition());
+        }
     }
 
     private Vector2 GetMouseWorldPosition()
