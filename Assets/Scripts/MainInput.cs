@@ -15,7 +15,7 @@ public class MainInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.anyKeyDown )
         {
             _mainCharacter.JumpToward(GetMouseWorldPosition());
         }

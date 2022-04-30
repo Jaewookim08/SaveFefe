@@ -323,9 +323,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpImpulseSize: 2
   _minGravity: 2
-  _maxGravity: 8
-  _timeUntilGravityIncreaseStart: 0.5
-  _timeForGravityChange: 0
+  _maxGravity: 25
+  _timeUntilGravityIncreaseStart: 0.1
+  _timeForGravityChange: 0.5
+  _verticalReverseAcceleration: 32
+  _horizontalReverseAcceleration: 32
+  _maxUpwardSpeed: 5
+  _maxDownwardSpeed: 60
+  _maxHorizontalSpeed: 5
 --- !u!50 &1183501285
 Rigidbody2D:
   serializedVersion: 4
@@ -355,7 +360,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183501283}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.861, y: -0.977, z: -0.015828121}
+  m_LocalPosition: {x: 0.39, y: -0.72, z: -0.015828121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
