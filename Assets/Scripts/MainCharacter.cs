@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class MainCharacter : MonoBehaviour
 {
     public enum JumpDirection
     {
-        Left, Right
+        Left,
+        Right
     }
-    
+
     [SerializeField] private float _jumpImpulseXSize = 1f;
     [SerializeField] private float _jumpImpulseYSize = 1f;
     [Header("Gravity")] [SerializeField] private float _minGravity = 2;
@@ -23,7 +25,10 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] private float _maxDownwardSpeed = 60f;
     [SerializeField] private float _maxHorizontalSpeed = 2f;
 
+    [Header("Sprites")] [SerializeField] private Sprite[] _defaultSprites;
+    [SerializeField] private Sprite _stunnedSprite;
 
+    private int _defaultSpriteIndex = 0;
     private float _gravitySize;
     private float _lastGravityResetTime;
     private Queue<Vector2> _nextJumpImpulseBuffer;
@@ -32,28 +37,36 @@ public class MainCharacter : MonoBehaviour
 
 
     private Rigidbody2D _rigidbody;
+    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         ResetGravity();
         _nextJumpImpulseBuffer = new Queue<Vector2>();
     }
 
-
+    private void Update()
+    {
+        _spriteRenderer.sprite = GetSprite();
+    }
+    
 
     public void Jump(JumpDirection dir)
     {
         if (!CanJump()) return;
         ResetGravity();
-        
+
+        _defaultSpriteIndex = (_defaultSpriteIndex + 1) % _defaultSprites.Length;
+
         var xDir = dir == JumpDirection.Left ? -1 : 1;
-        
+
         var jumpVec = new Vector2(xDir * _jumpImpulseXSize, _jumpImpulseYSize);
 
         _nextJumpImpulseBuffer.Enqueue(jumpVec);
     }
-    
+
     public void Stun(float seconds)
     {
         _stunnedUntil = Time.time + seconds;
@@ -98,7 +111,7 @@ public class MainCharacter : MonoBehaviour
 
     private void ApplyFriction()
     {
-        if(IsStunned())
+        if (IsStunned())
             return;
         var vel = _rigidbody.velocity;
 
@@ -139,4 +152,13 @@ public class MainCharacter : MonoBehaviour
         return _stunnedUntil > Time.time;
     }
 
+    private Sprite GetSprite()
+    {
+        if (IsStunned())
+        {
+            return _stunnedSprite;
+        }
+
+        return _defaultSprites[_defaultSpriteIndex];
+    }
 }
