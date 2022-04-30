@@ -11,8 +11,8 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] private float _timeUntilGravityIncreaseStart = 0.5f;
     [SerializeField] private float _timeForGravityChange = 0.2f;
 
-    [Header("Movement")] [SerializeField] private float _verticalReverseAcceleration = 32f; // 위로 가는 중에 아래쪽으로 작용하는 가속도
-    [SerializeField] private float _horizontalReverseAcceleration = 32f; // 좌우 방향 가속도
+    [Header("Movement")] [SerializeField] private float _verticalFriction = 32f; // 위로 가는 중에 아래쪽으로 작용하는 가속도
+    [SerializeField] private float _horizontalFriction = 32f; // 좌우 방향 가속도
     [SerializeField] private float _maxUpwardSpeed = 2f;
     [SerializeField] private float _maxDownwardSpeed = 60f;
     [SerializeField] private float _maxHorizontalSpeed = 2f;
@@ -21,6 +21,8 @@ public class MainCharacter : MonoBehaviour
     private float _gravitySize;
     private float _lastGravityResetTime;
     private Queue<Vector2> _nextJumpImpulseBuffer;
+
+    private float _stunnedUntil = 0f;
 
 
     private Rigidbody2D _rigidbody;
@@ -35,12 +37,19 @@ public class MainCharacter : MonoBehaviour
 
     public void JumpToward(Vector2 targetPosition)
     {
+        if (!CanJump()) return;
+
         // 중력 초기화
         ResetGravity();
 
         var dir = targetPosition - (Vector2)transform.position;
 
         _nextJumpImpulseBuffer.Enqueue(dir.normalized * _jumpImpulseSize);
+    }
+
+    public void Stun(float seconds)
+    {
+        _stunnedUntil = Time.time + seconds;
     }
 
     private void ResetGravity()
@@ -76,10 +85,10 @@ public class MainCharacter : MonoBehaviour
 
         if (vel.y > 0)
         {
-            vel.y = Math.Max(vel.y - _verticalReverseAcceleration * Time.fixedDeltaTime, 0);
+            vel.y = Math.Max(vel.y - vel.y * _verticalFriction * Time.fixedDeltaTime, 0);
         }
 
-        vel.x = Mathf.MoveTowards(vel.x, 0, _horizontalReverseAcceleration * Time.fixedDeltaTime);
+        vel.x = Mathf.MoveTowards(vel.x, 0, Math.Abs(vel.x) * _horizontalFriction * Time.fixedDeltaTime);
 
         _rigidbody.velocity = vel;
     }
@@ -99,5 +108,15 @@ public class MainCharacter : MonoBehaviour
         vec.x = Math.Min(_maxHorizontalSpeed, Math.Max(-_maxHorizontalSpeed, vec.x));
         vec.y = Math.Min(_maxUpwardSpeed, Math.Max(-_maxDownwardSpeed, vec.y));
         return vec;
+    }
+
+    private bool CanJump()
+    {
+        return !IsStunned();
+    }
+
+    private bool IsStunned()
+    {
+        return _stunnedUntil > Time.time;
     }
 }
