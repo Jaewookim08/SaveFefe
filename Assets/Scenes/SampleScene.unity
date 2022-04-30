@@ -1165,10 +1165,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainCharacter
       objectReference: {fileID: 0}
-    - target: {fileID: 6562437556236780836, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
-      propertyPath: _jumpImpulseSize
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6562437556236780838, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1212,10 +1208,6 @@ PrefabInstance:
     - target: {fileID: 6562437556236780838, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6562437556853159732, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}
-      propertyPath: _eyeRadius
-      value: 0.07
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d1b49333b650844a8c8197e16ebedac, type: 3}

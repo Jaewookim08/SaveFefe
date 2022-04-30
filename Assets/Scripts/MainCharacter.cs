@@ -29,6 +29,7 @@ public class MainCharacter : MonoBehaviour
     [Header("Sprites")] [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite[] _defaultSprites;
     [SerializeField] private Sprite _stunnedSprite;
+    [SerializeField] private MainCharacterEye _eyeController;
 
     private int _defaultSpriteIndex = 0;
     private float _gravitySize;
@@ -55,6 +56,7 @@ public class MainCharacter : MonoBehaviour
     private void Update()
     {
         _spriteRenderer.sprite = GetSprite();
+        _eyeController.UpdateEye(IsStunned(), Vector2.zero);
     }
 
 
@@ -173,4 +175,5 @@ public class MainCharacter : MonoBehaviour
 
         return _defaultSprites[_defaultSpriteIndex];
     }
+    
 }
