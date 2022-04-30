@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -19,7 +20,7 @@ public class MainCharacter : MonoBehaviour
 
     private float _gravitySize;
     private float _lastGravityResetTime;
-    private Vector2? _nextJumpImpulse;
+    private Queue<Vector2> _nextJumpImpulseBuffer;
 
 
     private Rigidbody2D _rigidbody;
@@ -28,6 +29,7 @@ public class MainCharacter : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         ResetGravity();
+        _nextJumpImpulseBuffer = new Queue<Vector2>();
     }
 
 
@@ -38,7 +40,7 @@ public class MainCharacter : MonoBehaviour
 
         var dir = targetPosition - (Vector2)transform.position;
 
-        _nextJumpImpulse = dir.normalized * _jumpImpulseSize;
+        _nextJumpImpulseBuffer.Enqueue(dir.normalized * _jumpImpulseSize);
     }
 
     private void ResetGravity()
@@ -49,15 +51,12 @@ public class MainCharacter : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Apply gravity
         UpdateGravitySize();
         _rigidbody.AddForce(Vector2.down * _gravitySize, ForceMode2D.Force);
 
-        // Apply accelerations
         ApplyReverseAccelerations();
 
-        // Jump if any jump request exists.
-        ApplyBufferedJump();
+        ApplyBufferedJumps();
 
         // Clamp velocity
         _rigidbody.velocity = ClampVelocity(_rigidbody.velocity);
@@ -77,19 +76,21 @@ public class MainCharacter : MonoBehaviour
 
         if (vel.y > 0)
         {
-            vel.y = Math.Max(vel.y - _verticalReverseAcceleration*Time.fixedDeltaTime, 0);
+            vel.y = Math.Max(vel.y - _verticalReverseAcceleration * Time.fixedDeltaTime, 0);
         }
 
-        vel.x = Mathf.MoveTowards(vel.x, 0, _horizontalReverseAcceleration*Time.fixedDeltaTime);
+        vel.x = Mathf.MoveTowards(vel.x, 0, _horizontalReverseAcceleration * Time.fixedDeltaTime);
 
         _rigidbody.velocity = vel;
     }
 
-    private void ApplyBufferedJump()
+    private void ApplyBufferedJumps()
     {
-        if (!_nextJumpImpulse.HasValue) return;
-        _rigidbody.AddForce(_nextJumpImpulse.Value, ForceMode2D.Impulse);
-        _nextJumpImpulse = null;
+        while (_nextJumpImpulseBuffer.Count > 0)
+        {
+            var impulse = _nextJumpImpulseBuffer.Dequeue();
+            _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
+        }
     }
 
 
