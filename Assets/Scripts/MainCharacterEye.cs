@@ -24,7 +24,7 @@ public class MainCharacterEye : MonoBehaviour
     }
 
 
-    public void UpdateEye(bool isStunned, Vector2 lookingAt)
+    public void UpdateEye(bool isStunned, Vector2? lookingAt)
     {
         if (isStunned)
         {
@@ -42,7 +42,12 @@ public class MainCharacterEye : MonoBehaviour
                 p.sprite = _defaultEye;
             }
 
-            LookAt(lookingAt - (Vector2) _watchFromPoint.position);
+            if (!lookingAt.HasValue){
+                LookAt(Vector2.zero);
+                return;
+            } 
+
+            LookAt(lookingAt.Value - (Vector2) _watchFromPoint.position);
         }
     }
 

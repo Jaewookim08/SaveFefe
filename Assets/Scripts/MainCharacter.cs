@@ -40,10 +40,12 @@ public class MainCharacter : MonoBehaviour
 
 
     private Rigidbody2D _rigidbody;
+    private SeeObject _seeObject;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _seeObject = GetComponent<SeeObject>();
         ResetGravity();
         _nextJumpImpulseBuffer = new Queue<Vector2>();
     }
@@ -56,7 +58,9 @@ public class MainCharacter : MonoBehaviour
     private void Update()
     {
         _spriteRenderer.sprite = GetSprite();
-        _eyeController.UpdateEye(IsStunned(), Vector2.zero);
+        Vector3? closestVec = _seeObject.GetClosestSeeObjTransform();
+        _eyeController.UpdateEye(IsStunned(), (Vector2?) closestVec);
+        
     }
 
 
