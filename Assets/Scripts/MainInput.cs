@@ -6,8 +6,8 @@ public class MainInput : MonoBehaviour
     [SerializeField] private MainCharacter _mainCharacter;
 
 
-    private static readonly KeyCode[] LeftJumpKeys = {  KeyCode.F };
-    private static readonly KeyCode[] RightJumpKeys = { KeyCode.J };
+    private static readonly KeyCode[] LeftJumpKeys = {  KeyCode.D };
+    private static readonly KeyCode[] RightJumpKeys = { KeyCode.K };
     private Camera _targetCamera;
 
 
