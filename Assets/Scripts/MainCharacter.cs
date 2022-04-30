@@ -77,10 +77,10 @@ public class MainCharacter : MonoBehaviour
 
         if (vel.y > 0)
         {
-            vel.y = Math.Max(vel.y - _verticalReverseAcceleration, 0);
+            vel.y = Math.Max(vel.y - _verticalReverseAcceleration*Time.fixedDeltaTime, 0);
         }
 
-        vel.x = Mathf.MoveTowards(vel.x, 0, _horizontalReverseAcceleration);
+        vel.x = Mathf.MoveTowards(vel.x, 0, _horizontalReverseAcceleration*Time.fixedDeltaTime);
 
         _rigidbody.velocity = vel;
     }

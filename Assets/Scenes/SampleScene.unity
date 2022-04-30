@@ -321,16 +321,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49213cbf670c40689d0b736ed8d8ad0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpImpulseSize: 2
+  _jumpImpulseSize: 0.8
   _minGravity: 2
-  _maxGravity: 25
+  _maxGravity: 30
   _timeUntilGravityIncreaseStart: 0.1
-  _timeForGravityChange: 0.5
-  _verticalReverseAcceleration: 32
-  _horizontalReverseAcceleration: 32
-  _maxUpwardSpeed: 5
-  _maxDownwardSpeed: 60
-  _maxHorizontalSpeed: 5
+  _timeForGravityChange: 0.2
+  _verticalReverseAcceleration: 13
+  _horizontalReverseAcceleration: 13
+  _maxUpwardSpeed: 2
+  _maxDownwardSpeed: 50
+  _maxHorizontalSpeed: 2
 --- !u!50 &1183501285
 Rigidbody2D:
   serializedVersion: 4
