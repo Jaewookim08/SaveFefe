@@ -12,6 +12,6 @@ public class MagneticObject : MonoBehaviour
             Destroy(this.gameObject);
         }
         timeElapsed += Time.fixedDeltaTime;
-        this.transform.localPosition += new Vector3(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime, 0);
+        this.transform.position += new Vector3(direction.x * speed * Time.fixedDeltaTime, direction.y * speed * Time.fixedDeltaTime, 0);
     }
 }

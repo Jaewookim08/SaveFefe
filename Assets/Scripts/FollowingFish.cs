@@ -10,7 +10,7 @@ public class FollowingFish : MonoBehaviour
     [SerializeField] private float _maxMoveDist = 10f;
     
     private float _setNextDestTime = 0f;
-    private Vector3 _targetPosition;
+    private Vector3? _targetPosition;
     
     private void Awake()
     {
@@ -24,12 +24,16 @@ public class FollowingFish : MonoBehaviour
             _setNextDestTime = Time.fixedTime + _timeToChangeDest;
         }
 
-        var pos = (Vector3)Vector2.Lerp(transform.position, _targetPosition, 0.01f);
-        pos.z = transform.position.z;
-        transform.position = pos;
+        if (_targetPosition.HasValue)
+        {
+            
+            var pos = (Vector3)Vector2.Lerp(transform.position, _targetPosition.Value, 0.01f);
+            pos.z = transform.position.z;
+            transform.position = pos;
+        }
     }
 
-    private Vector2 GetRandomDestAroundTarget()
+    private Vector2? GetRandomDestAroundTarget()
     {
         for (var i = 0; i < 30; i++)
         {
@@ -43,7 +47,7 @@ public class FollowingFish : MonoBehaviour
             }
         }
 
-        return _targetPosition; // Todo: 못 찾은 경우 처리.
+        return null; // Todo: 못 찾은 경우 처리.
     }
     
 }

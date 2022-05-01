@@ -63,6 +63,9 @@ public class MainCharacter : MonoBehaviour
         _rigidbody.inertia = _inertia;
     }
 
+
+    private bool _lastIsDropAttacking = false;
+    
     private void Update()
     {
         _spriteRenderer.sprite = GetSprite();
@@ -71,12 +74,17 @@ public class MainCharacter : MonoBehaviour
 
 
         // Todo: 
-        foreach (var aa  in FindObjectsOfType<Wtf>())
+
+        if (_lastIsDropAttacking != IsDropAttacking)
         {
-            aa.Collider.isTrigger = IsDropAttacking;
-            aa.Trigger.isTrigger = IsDropAttacking;
+            foreach (var aa in FindObjectsOfType<Wtf>())
+            {
+                aa.Collider.isTrigger = IsDropAttacking;
+                aa.Trigger.isTrigger = IsDropAttacking;
+            }
         }
         
+
         if (!IsDropAttacking)
         {
             _dropAttackParticleSystem.Stop();
@@ -91,6 +99,9 @@ public class MainCharacter : MonoBehaviour
                 _dropAttackParticleSystem.Play();
             }
         }
+        
+        _lastIsDropAttacking = IsDropAttacking;
+
     }
 
 
@@ -128,7 +139,9 @@ public class MainCharacter : MonoBehaviour
         {
             vec.Normalize();
             _rigidbody.velocity = Vector2.zero;
-            _rigidbody.AddForceAtPosition(vec * power, pos, ForceMode2D.Impulse);
+            Debug.Log(vec * power);
+            // _rigidbody.AddForceAtPosition(vec * power, pos, ForceMode2D.Impulse);
+            _rigidbody.AddForce(vec * power, ForceMode2D.Impulse);
             Stun(stunTime);
         }
     }
@@ -150,7 +163,10 @@ public class MainCharacter : MonoBehaviour
         ApplyBufferedJumps();
 
         // Clamp velocity
-        _rigidbody.velocity = ClampVelocity(_rigidbody.velocity);
+        if (!IsStunned())
+        {
+            _rigidbody.velocity = ClampVelocity(_rigidbody.velocity);
+        }
     }
 
     private void UpdateGravitySize()

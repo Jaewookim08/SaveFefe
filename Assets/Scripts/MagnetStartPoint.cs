@@ -24,7 +24,7 @@ public class MagnetStartPoint : MonoBehaviour
         if (timeElapsed / magneticMakeSec >= magneticNum){
             var newmagnetic = Instantiate(magneticPrefab, new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0), transform.rotation, targetTransform);
             MagneticObject newmagneticComp = newmagnetic.GetComponent<MagneticObject>();
-            direction = targetTransform.localPosition - newmagnetic.transform.localPosition;
+            direction = targetTransform.position - newmagnetic.transform.position;
             direction.Normalize();
             newmagneticComp.direction = direction;
             newmagneticComp.speed = magneticSpeed;
