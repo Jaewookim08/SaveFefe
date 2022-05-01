@@ -4,7 +4,7 @@ public class TriggerObject : MonoBehaviour
 {
     [SerializeField] public bool isTrigger; // Todo:
     [SerializeField] private bool directionFixed;
-    [SerializeField] private Vector2 direction;
+    [SerializeField] public Vector2 direction;
     [SerializeField] private float power;
     [SerializeField] private float stunTime;
     private MainCharacter triggerObject;
