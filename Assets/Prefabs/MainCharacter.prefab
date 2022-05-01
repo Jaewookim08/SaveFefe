@@ -4934,8 +4934,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0fc695a8b51e84243af4e063b19fff5e, type: 3}
   _stunnedSprite: {fileID: 21300000, guid: a81c1a7ff9dfbe347adb0c155ae94722, type: 3}
   _eyeController: {fileID: 6562437556853159732}
-  _attackDropStartSpeed: 20
-  _attackDropParticleSystem: {fileID: 2048721662}
+  _dropAttackStartSpeed: 15
+  _dropAttackParticleSystem: {fileID: 2048721662}
 --- !u!61 &6562437556236780839
 BoxCollider2D:
   m_ObjectHideFlags: 0

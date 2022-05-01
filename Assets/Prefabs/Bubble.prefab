@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6871513080234538648}
   - component: {fileID: 6871513080234538653}
   - component: {fileID: 6871513080234538652}
+  - component: {fileID: 6682404809927546849}
   m_Layer: 0
   m_Name: Bubble
   m_TagString: Untagged
@@ -134,5 +135,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: -1, y: 2}
   speed: 5
+  scalingRatio: 0
   surviveTime: 3
   explodedBubble: {fileID: 21300000, guid: ccb2d426b00657d449bb130ad507b0ab, type: 3}
+--- !u!114 &6682404809927546849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6871513080234538649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5590c259ff4d908323c239a8c1b8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

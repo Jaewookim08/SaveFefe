@@ -149,7 +149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 418485503}
   - component: {fileID: 418485502}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BackGround (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 436563485}
   - component: {fileID: 436563484}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 445579025}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 501759496}
   - component: {fileID: 501759495}
   - component: {fileID: 501759494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,6 +579,7 @@ GameObject:
   - component: {fileID: 652906143}
   - component: {fileID: 652906144}
   - component: {fileID: 652906145}
+  - component: {fileID: 652906146}
   m_Layer: 0
   m_Name: "\uBB3C\uACE0\uAE302"
   m_TagString: Untagged
@@ -889,6 +890,18 @@ MonoBehaviour:
   - direction: {x: -1, y: 0}
     speed: 1
     time: 3
+--- !u!114 &652906146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652906140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5590c259ff4d908323c239a8c1b8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1114062852
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,7 +914,7 @@ GameObject:
   - component: {fileID: 1114062853}
   - component: {fileID: 1114062856}
   - component: {fileID: 1114062855}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1034,7 +1047,7 @@ GameObject:
   - component: {fileID: 1261033205}
   - component: {fileID: 1261033204}
   - component: {fileID: 1261033203}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,7 +1446,7 @@ GameObject:
   - component: {fileID: 1887585946}
   - component: {fileID: 1887585945}
   - component: {fileID: 1887585944}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

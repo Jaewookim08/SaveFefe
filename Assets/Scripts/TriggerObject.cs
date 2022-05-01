@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TriggerObject : MonoBehaviour
 {
-    [SerializeField] private bool isTrigger;
+    [SerializeField] public bool isTrigger; // Todo:
     [SerializeField] private bool directionFixed;
     [SerializeField] private Vector2 direction;
     [SerializeField] private float power;
@@ -14,14 +14,14 @@ public class TriggerObject : MonoBehaviour
 
         this.triggerObject = other.GetComponent<MainCharacter>();
         if (directionFixed)
-            triggerObject.CollidedWithTrigger(direction, power, stunTime);
+            triggerObject.CollidedWithTrigger(direction, power, stunTime, gameObject);
         else
         {
             float x = triggerObject.transform.localPosition.x - this.transform.localPosition.x;
             float y = triggerObject.transform.localPosition.y - this.transform.localPosition.y;
             direction.x = x;
             direction.y = y;
-            triggerObject.CollidedWithTrigger(direction, power, stunTime);
+            triggerObject.CollidedWithTrigger(direction, power, stunTime, gameObject);
         }
     }
 
@@ -30,14 +30,14 @@ public class TriggerObject : MonoBehaviour
         if (other.tag != "Player") return;
 
         if (directionFixed)
-            triggerObject.CollidedWithTrigger(direction, power / 2, stunTime);
+            triggerObject.CollidedWithTrigger(direction, power / 2, stunTime, gameObject);
         else
         {
             float x = triggerObject.transform.localPosition.x - this.transform.localPosition.x;
             float y = triggerObject.transform.localPosition.y - this.transform.localPosition.y;
             direction.x = x;
             direction.y = y;
-            triggerObject.CollidedWithTrigger(direction, power / 2, stunTime);
+            triggerObject.CollidedWithTrigger(direction, power / 2, stunTime, gameObject);
         }
     }
 
@@ -47,6 +47,6 @@ public class TriggerObject : MonoBehaviour
         this.triggerObject = other.collider.GetComponent<MainCharacter>();
 
         var point = other.GetContact(0).point;
-        triggerObject.CollidedWithTriggerAtPoint(point, point - (Vector2) transform.localPosition, power, stunTime);
+        triggerObject.CollidedWithTriggerAtPoint(point, point - (Vector2) transform.localPosition, power, stunTime, gameObject);
     }
 }

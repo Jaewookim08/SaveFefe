@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MainCharacter : MonoBehaviour
@@ -31,8 +32,11 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] private Sprite _stunnedSprite;
     [SerializeField] private MainCharacterEye _eyeController;
 
-    [Header("Others")] [SerializeField] private float _attackDropStartSpeed = 40f;
-    [SerializeField] private ParticleSystem _attackDropParticleSystem;
+    [FormerlySerializedAs("_attackDropStartSpeed")] [Header("Others")] [SerializeField]
+    private float _dropAttackStartSpeed = 40f;
+
+    [FormerlySerializedAs("_attackDropParticleSystem")] [SerializeField]
+    private ParticleSystem _dropAttackParticleSystem;
 
 
     private int _defaultSpriteIndex = 0;
@@ -65,18 +69,27 @@ public class MainCharacter : MonoBehaviour
         Vector3? closestVec = _seeObject.GetClosestSeeObjTransform();
         _eyeController.UpdateEye(IsStunned(), (Vector2?)closestVec);
 
-     
 
-
-        if (!IsAttackDropping)
+        // Todo: 
+        foreach (var aa  in FindObjectsOfType<Wtf>())
         {
-            _attackDropParticleSystem.Stop();
+            aa.Collider.isTrigger = IsDropAttacking;
+            aa.Trigger.isTrigger = IsDropAttacking;
         }
-        else if (!_attackDropParticleSystem.isPlaying)
+        
+        if (!IsDropAttacking)
         {
-            _attackDropParticleSystem.transform.rotation = Quaternion.identity; // 땜빵코드.    Todo: 
-            _attackDropParticleSystem.Clear();
-            _attackDropParticleSystem.Play();
+            _dropAttackParticleSystem.Stop();
+        }
+        else
+        {
+            // gameObject.layer = 6;y
+            if (!_dropAttackParticleSystem.isPlaying)
+            {
+                _dropAttackParticleSystem.transform.rotation = Quaternion.identity; // 땜빵코드.    Todo: 
+                _dropAttackParticleSystem.Clear();
+                _dropAttackParticleSystem.Play();
+            }
         }
     }
 
@@ -100,20 +113,24 @@ public class MainCharacter : MonoBehaviour
         _stunnedUntil = Math.Max(_stunnedUntil, Time.time + seconds);
     }
 
-    public void CollidedWithTrigger(Vector2 vec, float power, float stunTime)
+    public void CollidedWithTrigger(Vector2 vec, float power, float stunTime, GameObject other)
     {
-        vec.Normalize();
-        _rigidbody.velocity = Vector2.zero;
-        _rigidbody.AddForce(vec * power, ForceMode2D.Impulse);
-        Stun(stunTime);
+        CollidedWithTriggerAtPoint(_rigidbody.position, vec, power, stunTime, other);
     }
 
-    public void CollidedWithTriggerAtPoint(Vector2 pos, Vector2 vec, float power, float stunTime)
+    public void CollidedWithTriggerAtPoint(Vector2 pos, Vector2 vec, float power, float stunTime, GameObject other)
     {
-        vec.Normalize();
-        _rigidbody.velocity = Vector2.zero;
-        _rigidbody.AddForceAtPosition(vec * power, pos, ForceMode2D.Impulse);
-        Stun(stunTime);
+        if (IsDropAttacking)
+        {
+            Destroy(other);
+        }
+        else
+        {
+            vec.Normalize();
+            _rigidbody.velocity = Vector2.zero;
+            _rigidbody.AddForceAtPosition(vec * power, pos, ForceMode2D.Impulse);
+            Stun(stunTime);
+        }
     }
 
 
@@ -197,5 +214,5 @@ public class MainCharacter : MonoBehaviour
         return _defaultSprites[_defaultSpriteIndex];
     }
 
-    public bool IsAttackDropping => !IsStunned() && _rigidbody.velocity.y < -_attackDropStartSpeed;
+    public bool IsDropAttacking => !IsStunned() && _rigidbody.velocity.y < -_dropAttackStartSpeed;
 }
