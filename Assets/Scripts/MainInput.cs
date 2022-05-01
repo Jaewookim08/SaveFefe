@@ -6,7 +6,7 @@ public class MainInput : MonoBehaviour
     [SerializeField] private MainCharacter _mainCharacter;
 
 
-    private static readonly KeyCode[] LeftJumpKeys = {  KeyCode.D };
+    private static readonly KeyCode[] LeftJumpKeys = { KeyCode.D };
     private static readonly KeyCode[] RightJumpKeys = { KeyCode.K };
     private Camera _targetCamera;
 
@@ -25,11 +25,24 @@ public class MainInput : MonoBehaviour
                 _mainCharacter.Jump(MainCharacter.JumpDirection.Left);
             }
         }
+
         foreach (var key in RightJumpKeys)
         {
             if (Input.GetKeyDown(key))
             {
                 _mainCharacter.Jump(MainCharacter.JumpDirection.Right);
+            }
+        }
+
+
+        foreach (var touch in Input.touches)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                _mainCharacter.Jump(
+                    touch.position.x < (float)Screen.width / 2
+                        ? MainCharacter.JumpDirection.Left
+                        : MainCharacter.JumpDirection.Right);
             }
         }
     }
