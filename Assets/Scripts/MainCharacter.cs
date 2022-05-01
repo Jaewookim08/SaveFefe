@@ -31,6 +31,10 @@ public class MainCharacter : MonoBehaviour
     [SerializeField] private Sprite _stunnedSprite;
     [SerializeField] private MainCharacterEye _eyeController;
 
+    [Header("Others")] [SerializeField] private float _attackDropStartSpeed = 40f;
+    [SerializeField] private ParticleSystem _attackDropParticleSystem;
+
+
     private int _defaultSpriteIndex = 0;
     private float _gravitySize;
     private float _lastGravityResetTime;
@@ -59,8 +63,21 @@ public class MainCharacter : MonoBehaviour
     {
         _spriteRenderer.sprite = GetSprite();
         Vector3? closestVec = _seeObject.GetClosestSeeObjTransform();
-        _eyeController.UpdateEye(IsStunned(), (Vector2?) closestVec);
-        
+        _eyeController.UpdateEye(IsStunned(), (Vector2?)closestVec);
+
+     
+
+
+        if (!IsAttackDropping)
+        {
+            _attackDropParticleSystem.Stop();
+        }
+        else if (!_attackDropParticleSystem.isPlaying)
+        {
+            _attackDropParticleSystem.transform.rotation = Quaternion.identity; // 땜빵코드.    Todo: 
+            _attackDropParticleSystem.Clear();
+            _attackDropParticleSystem.Play();
+        }
     }
 
 
@@ -179,5 +196,6 @@ public class MainCharacter : MonoBehaviour
 
         return _defaultSprites[_defaultSpriteIndex];
     }
-    
+
+    public bool IsAttackDropping => !IsStunned() && _rigidbody.velocity.y < -_attackDropStartSpeed;
 }
