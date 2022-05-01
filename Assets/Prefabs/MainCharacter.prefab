@@ -107,7 +107,7 @@ MonoBehaviour:
   _jumpImpulseXSize: 0.6
   _jumpImpulseYSize: 0.7
   _minGravity: 4
-  _maxGravity: 50
+  _maxGravity: 70
   _timeUntilGravityIncreaseStart: 0.3
   _timeForGravityChange: 0.2
   _verticalFriction: 1
